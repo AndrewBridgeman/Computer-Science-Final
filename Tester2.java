@@ -13,10 +13,7 @@ public class Tester2
    {
     Scanner in = new Scanner(System.in);
     FileReader reader = new FileReader("Employees.txt");
-    FileReader reader2 = new FileReader("temp.txt");
-    FileWriter writer2 = new FileWriter("temp.txt");
-    writer2.write(reader.read());
-    FileWriter writer = new FileWriter("Employees.txt");
+    FileWriter writer = new FileWriter("Employees.txt", true);
     
     
     System.out.println("Enter your admin or employee password");
@@ -49,7 +46,6 @@ public class Tester2
             String response = in.nextLine();
             if (response.equals("no")){
                 done = true;
-                writer.write(reader2.read());
         }
       }
     }
@@ -72,8 +68,6 @@ public class Tester2
         System.out.println("Invalid Password!");
     }
     writer.close();
-    writer2.close();
     reader.close();
-    reader2.close();
    }
 }
