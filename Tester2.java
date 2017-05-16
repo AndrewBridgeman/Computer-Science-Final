@@ -12,14 +12,18 @@ public class Tester2
    public static void main(String[] args) throws IOException
    {
     Scanner in = new Scanner(System.in);
-    FileReader reader = new FileReader("Employees.txt");
-    FileWriter writer = new FileWriter("Employees.txt", true);
-    
+    File employeeInfo = new File("Employees.txt");
+    File employeeSalary = new File("Salries.txt");
+    FileReader reader = new FileReader(employeeInfo);
+    FileWriter writer = new FileWriter(employeeInfo, true);
+    FileReader reader2 = new FileReader(employeeSalary);
+    FileWriter writer2 = new FileWriter(employeeSalary, true);
+    Scanner fileIn = new Scanner(reader);
     
     System.out.println("Enter your admin or employee password");
     String password = in.nextLine();
-    ArrayList<String> list = new ArrayList<String>();
-    ArrayList<Double> list2 = new ArrayList<Double>();
+    ArrayList<String> employees = new ArrayList<String>();
+    ArrayList<Double> salaries = new ArrayList<Double>();
     if (password.substring(0,1).equalsIgnoreCase("A"))
     {
       boolean done = false;
@@ -33,14 +37,14 @@ public class Tester2
             String id = in.nextLine(); 
             System.out.println("Enter the hourly pay of the new employee");
             double hourlypay = in.nextDouble();
-            String item = fname + " " + lname + ", " + id; 
-            list.add(item);
-            System.out.println(list);
+            String newEmployee = fname + " " + lname + ", " + id; 
+            employees.add(newEmployee);
+            System.out.println(employees);
             String fulldescrip = fname + " " + lname + ", " + id + ", ";
             String textOut = fname + " " + lname + ", " + id + ", " + hourlypay;
-            list2.add(hourlypay);
-            System.out.println(list2);
-            String password2 = in.nextLine();
+            salaries.add(hourlypay);
+            System.out.println(salaries);
+            String formatti = in.nextLine();
             writer.write(textOut + System.lineSeparator());
             System.out.println("Do you want to enter another employee? Say 'yes' or 'no'!");
             String response = in.nextLine();
@@ -51,16 +55,21 @@ public class Tester2
     }
     else if (password.substring(0,1).equalsIgnoreCase("E"))
     {
-        Scanner in2 = new Scanner(System.in);
-        System.out.println("Enter your first and last name");
-        String name = in2.nextLine();
+        System.out.println("Enter your first name");
+        String firstName = in.nextLine();
+        System.out.println("Enter your last name");
+        String lastName = in.nextLine();
         System.out.println("Enter your ID");
-        String id2 = in2.nextLine();
-        String message = name + ", " + id2;
-        for(int i = 0; i<list.size(); i++){
-            if(message.equals(list.get(i))){
+        String employID = in.nextLine();
+        System.out.println("Enter your salary");
+        String employSal = in.nextLine();
+        String message = firstName + " " + lastName + ", " + employID + ", " + employSal;
+        while (fileIn.hasNextLine() == true)
+        {
+            if(message.equalsIgnoreCase(fileIn.nextLine()))
+            {
                 System.out.println("Success.");
-            }
+            } 
         }
     }
     else 
