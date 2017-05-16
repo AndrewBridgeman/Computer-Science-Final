@@ -1,5 +1,5 @@
 
-public class Administrator
+public class Administrator implements User
 {
    /**
     * Administrator constructor
@@ -24,14 +24,14 @@ public class Administrator
     * getfname returns first name 
     * @return the first name  
     */
-    public String getfname(){
+    public String getFirstName(){
        return fname;  
     }
     /**
     * getlname returns last name 
     * @return the last name  
     */
-    public String getlname(){
+    public String getLastName(){
        return lname; 
     }
     public double getSalary()
