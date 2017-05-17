@@ -13,12 +13,16 @@ public class Tester
    {
     Scanner in = new Scanner(System.in);
     File employeeInfo = new File("Employees.txt");
-    File employeeSalary = new File("Salries.txt");
-    FileReader reader = new FileReader(employeeInfo);
+    File employeeSalaries = new File("Salaries.txt");
+    
     FileWriter writer = new FileWriter(employeeInfo, true);
-    FileReader reader2 = new FileReader(employeeSalary);
-    FileWriter writer2 = new FileWriter(employeeSalary, true);
+    FileReader reader = new FileReader(employeeInfo);
+    
+    FileWriter writer2 = new FileWriter(employeeSalaries, true);
+    FileReader reader2 = new FileReader(employeeSalaries);
+    
     Scanner fileIn = new Scanner(reader);
+    Scanner fileIn2 = new Scanner(reader2);
     
     System.out.println("Enter your admin or employee password");
     String password = in.nextLine();
@@ -40,12 +44,15 @@ public class Tester
             String newEmployee = fname + " " + lname + ", " + id; 
             employees.add(newEmployee);
             System.out.println(employees);
-            String fulldescrip = fname + " " + lname + ", " + id + ", ";
-            String textOut = fname + " " + lname + ", " + id + ", " + hourlypay;
+            
+            String employeeInfoOut = fname + " " + lname + ", " + id;
+            String employeeSalariesOut = fname + " " + lname + ", " + hourlypay;
+            writer.write(employeeInfoOut + System.lineSeparator());
+            writer2.write(employeeSalariesOut + System.lineSeparator());
+            
             salaries.add(hourlypay);
             System.out.println(salaries);
-            String formatti = in.nextLine();
-            writer.write(textOut + System.lineSeparator());
+            String formatting = in.nextLine();
             System.out.println("Do you want to enter another employee? Say 'yes' or 'no'!");
             String response = in.nextLine();
             if (response.equals("no")){
@@ -61,15 +68,28 @@ public class Tester
         String lastName = in.nextLine();
         System.out.println("Enter your ID");
         String employID = in.nextLine();
-        System.out.println("Enter your salary");
-        String employSal = in.nextLine();
-        String message = firstName + " " + lastName + ", " + employID + ", " + employSal;
-        while (fileIn.hasNextLine() == true)
+        String fullName = firstName + " " + lastName;
+        String message = fullName + ", " + employID;
+        boolean realEmployee = false;
+        while (fileIn.hasNextLine() == true && realEmployee == false)
         {
             if(message.equalsIgnoreCase(fileIn.nextLine()))
             {
                 System.out.println("Success.");
+                realEmployee = true;
+                System.out.println();
             } 
+            if (realEmployee == true)
+            {
+                while (fileIn2.hasNextLine())
+                {
+                    String temp = fileIn2.nextLine();
+                    if (temp.contains(fullName))
+                    {
+                        String mySalary = temp.substring(fullName.length()+1);
+                    }
+                }
+            }
         }
     }
     else 
