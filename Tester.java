@@ -55,9 +55,10 @@ public class Tester
             String formatting = in.nextLine();
             System.out.println("Do you want to enter another employee? Say 'yes' or 'no'!");
             String response = in.nextLine();
-            if (response.equals("no")){
+            if (response.equals("no"))
+            {
                 done = true;
-        }
+            }
       }
     }
     else if (password.substring(0,1).equalsIgnoreCase("E"))
@@ -78,7 +79,7 @@ public class Tester
                 System.out.println("Success.");
                 realEmployee = true;
                 System.out.println();
-            } 
+            }
             if (realEmployee == true)
             {
                 while (fileIn2.hasNextLine())
@@ -87,6 +88,7 @@ public class Tester
                     if (temp.contains(fullName))
                     {
                         String mySalary = temp.substring(fullName.length()+1);
+                        System.out.println("Your salary is " + mySalary);
                     }
                 }
             }
@@ -98,5 +100,7 @@ public class Tester
     }
     writer.close();
     reader.close();
+    writer2.close();
+    reader2.close();
    }
 }
