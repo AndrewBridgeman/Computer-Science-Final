@@ -14,6 +14,7 @@ public class Tester
     Scanner in = new Scanner(System.in);
     File employeeInfo = new File("Employees.txt");
     File employeeSalaries = new File("Salaries.txt");
+    File employeePayday = new File("Payday.txt");
     
     FileWriter writer = new FileWriter(employeeInfo, true);
     FileReader reader = new FileReader(employeeInfo);
@@ -21,8 +22,12 @@ public class Tester
     FileWriter writer2 = new FileWriter(employeeSalaries, true);
     FileReader reader2 = new FileReader(employeeSalaries);
     
+    FileWriter writer3 = new FileWriter(employeePayday, true);
+    FileReader reader3 = new FileReader(employeePayday);
+    
     Scanner fileIn = new Scanner(reader);
     Scanner fileIn2 = new Scanner(reader2);
+    Scanner fileIn3 = new Scanner(reader3);
     
     System.out.println("Enter your admin or employee password");
     String password = in.nextLine();
@@ -31,6 +36,9 @@ public class Tester
     if (password.substring(0,1).equalsIgnoreCase("A"))
     {
       boolean done = false;
+      System.out.println("Would you like to add an employee or view the payroll?");
+      if (in.nextLine.equalsIgnoreCase("add an employee"))
+      {
         while(!done)
         {
             System.out.println("Enter the first name of the new employee");
@@ -59,6 +67,11 @@ public class Tester
             {
                 done = true;
             }
+        }
+      }
+      if (in.NextLine.equalsIgnoreCase("view the payroll"))
+      {
+          
       }
     }
     else if (password.substring(0,1).equalsIgnoreCase("E"))
@@ -74,9 +87,11 @@ public class Tester
         boolean realEmployee = false;
         while (fileIn.hasNextLine() == true && realEmployee == false)
         {
+            Time hoursWorked = new Time();
             if(message.equalsIgnoreCase(fileIn.nextLine()))
             {
-                System.out.println("Success.");
+                hoursWorked.startTime();
+                System.out.println("Hello " + fullName + ", you are clocked in.");
                 realEmployee = true;
                 System.out.println();
             }
@@ -88,7 +103,16 @@ public class Tester
                     if (temp.contains(fullName))
                     {
                         String mySalary = temp.substring(fullName.length()+1);
-                        System.out.println("Your salary is " + mySalary);
+                        System.out.println("Type 'out' when you want to clock out.");
+                        if (in.nextLine().equalsIgnoreCase("out"))
+                        {
+                            hoursWorked.endTime();
+                            double totalTime = hoursWorked.getTime()/60;
+                            System.out.println("You worked for " + totalTime + " hours.");
+                            double totalPay = totalTime * Double.parseDouble(mySalary);
+                            System.out.println("You earned $" + totalPay + ".");
+                            writer3.write(fullName + ", " + totalPay);
+                        }
                     }
                 }
             }
@@ -102,5 +126,7 @@ public class Tester
     reader.close();
     writer2.close();
     reader2.close();
+    writer3.close();
+    reader3.close();
    }
 }
