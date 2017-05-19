@@ -37,7 +37,8 @@ public class Tester
     {
       boolean done = false;
       System.out.println("Would you like to add an employee or view the payroll?");
-      if (in.nextLine.equalsIgnoreCase("add an employee"))
+      String choice = in.nextLine();
+      if (choice.equalsIgnoreCase("add an employee"))
       {
         while(!done)
         {
@@ -69,9 +70,19 @@ public class Tester
             }
         }
       }
-      if (in.NextLine.equalsIgnoreCase("view the payroll"))
+      else if (choice.equalsIgnoreCase("view the payroll"))
       {
-          
+          System.out.println("Enter the name of the employee");
+          String employeeName = in.nextLine();
+          while(fileIn3.hasNextLine())
+          {
+              String temp = fileIn3.nextLine();
+              if (temp.contains(employeeName))
+              {
+                  String employeeSalary = temp.substring(employeeName.length() + 2);
+                  System.out.println(employeeName + " earned $" + employeeSalary + ".");
+              }
+          }
       }
     }
     else if (password.substring(0,1).equalsIgnoreCase("E"))
@@ -107,9 +118,9 @@ public class Tester
                         if (in.nextLine().equalsIgnoreCase("out"))
                         {
                             hoursWorked.endTime();
-                            double totalTime = hoursWorked.getTime()/60;
+                            double totalTime = Math.round(((hoursWorked.getTime()/60)*100.0)/100.0);
                             System.out.println("You worked for " + totalTime + " hours.");
-                            double totalPay = totalTime * Double.parseDouble(mySalary);
+                            double totalPay = Math.round(((totalTime * Double.parseDouble(mySalary))*100.0)/100.0);
                             System.out.println("You earned $" + totalPay + ".");
                             writer3.write(fullName + ", " + totalPay);
                         }
